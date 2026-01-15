@@ -3,11 +3,12 @@
     margin: 0; padding: 0; box-sizing: border-box;
     user-select: none; 
     -webkit-user-drag: none;
+    -webkit-tap-highlight-color: transparent; /* Убирает синюю подсветку при клике на мобилках */
 }
 
 body {
     height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* Чтобы не скроллилось */
     font-family: 'Comic Neue', cursive;
     background: linear-gradient(45deg, #00c6ff, #0072ff, #f8cdda, #fddb92);
     background-size: 400% 400%;
@@ -15,6 +16,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* На мобильных курсор не нужен, но для ПК оставим */
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="font-size:24px"><text y="24">👾</text></svg>') 16 16, auto;
 }
 
@@ -51,37 +53,47 @@ body.shake-screen {
 .rocket { bottom: 20%; animation: flyAcrossReverse 20s infinite linear; }
 
 /* --- КАРТОЧКА --- */
-.scene-jelly { perspective: 1200px; z-index: 10; }
+.scene-jelly { 
+    perspective: 1200px; 
+    z-index: 10; 
+    width: 100%; /* Важно для мобилок */
+    display: flex;
+    justify-content: center;
+}
 
 .card-ultra {
-    border: 6px solid #000;
+    border: 5px solid #000;
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
-    width: 380px;
-    border-radius: 50px;
-    padding: 50px 30px;
+    
+    /* АДАПТИВНАЯ ШИРИНА */
+    width: 90%; 
+    max-width: 380px; /* На пк будет 380, на телефоне меньше */
+    
+    border-radius: 40px;
+    padding: 40px 20px;
     text-align: center;
-    box-shadow: 15px 15px 0px #000, inset 0 0 30px rgba(255,255,255,0.8);
+    box-shadow: 10px 10px 0px #000, inset 0 0 30px rgba(255,255,255,0.8);
     transform-style: preserve-3d;
     animation: cardBreathe 3s infinite ease-in-out;
 }
 
 .deco-star, .deco-heart, .deco-donut {
-    position: absolute; font-size: 50px;
+    position: absolute; font-size: 40px;
     filter: drop-shadow(4px 4px 0 #000);
     animation: bounceDeco 2s infinite ease-in-out;
 }
-.s1 { top: -30px; left: -20px; transform: translateZ(60px) rotate(-20deg); animation-delay: 0.1s; }
-.s2 { bottom: 20%; right: -30px; transform: translateZ(60px) rotate(20deg); animation-delay: 0.3s; font-size: 40px;}
-.h1 { top: -40px; right: 10px; transform: translateZ(70px) rotate(15deg); animation-delay: 0.5s; }
-.d1 { bottom: -30px; left: 20px; transform: translateZ(80px) rotate(-10deg); animation-delay: 0.7s; font-size: 60px; }
+.s1 { top: -20px; left: -10px; transform: translateZ(60px) rotate(-20deg); animation-delay: 0.1s; }
+.s2 { bottom: 15%; right: -20px; transform: translateZ(60px) rotate(20deg); animation-delay: 0.3s; font-size: 30px;}
+.h1 { top: -30px; right: 10px; transform: translateZ(70px) rotate(15deg); animation-delay: 0.5s; }
+.d1 { bottom: -20px; left: 10px; transform: translateZ(80px) rotate(-10deg); animation-delay: 0.7s; font-size: 50px; }
 
 .avatar-mega-wrapper {
-    width: 160px; height: 160px; margin: 0 auto 20px;
+    width: 140px; height: 140px; margin: 0 auto 15px;
     border-radius: 50%;
-    border: 6px solid #000;
-    background: #fff;
-    box-shadow: 8px 8px 0 #000;
+    border: 5px solid #000;
+    background: #FFD700; /* Желтый круг */
+    box-shadow: 6px 6px 0 #000;
     transform: translateZ(50px);
     animation: avatarPulse 2s infinite alternate;
 }
@@ -89,40 +101,43 @@ body.shake-screen {
 
 .nickname-boom {
     font-family: 'Rubik Mono One', sans-serif;
-    font-size: 38px;
+    font-size: 32px;
     color: #FFD700;
-    text-shadow: 3px 3px 0 #000, -3px -3px 0 #ff00de, 6px 6px 0 #000;
+    text-shadow: 3px 3px 0 #000, -2px -2px 0 #ff00de, 4px 4px 0 #000;
     transform: translateZ(40px);
     animation: textJitter 0.2s infinite;
+    line-height: 1.2;
+    margin-bottom: 5px;
 }
 
 .status-wiggle {
     font-weight: 900; color: #000;
     background: #fff; display: inline-block;
-    padding: 5px 15px; border: 3px solid #000; border-radius: 20px;
+    padding: 8px 12px; border: 3px solid #000; border-radius: 15px;
     box-shadow: 4px 4px 0 #000;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    font-size: 14px;
     transform: translateZ(30px) rotate(-2deg);
     animation: statusWiggle 1s infinite ease-in-out;
 }
 
-/* --- СТИКЕРЫ ТЕХНОЛОГИЙ (НОВОЕ) --- */
+/* --- СТИКЕРЫ ТЕХНОЛОГИЙ --- */
 .tech-stack {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 25px;
     transform: translateZ(35px);
 }
 
 .tech-badge {
     font-weight: 900;
-    font-size: 14px;
-    padding: 8px 12px;
+    font-size: 12px;
+    padding: 8px 10px;
     border: 3px solid #000;
-    border-radius: 12px;
-    box-shadow: 4px 4px 0 #000;
+    border-radius: 10px;
+    box-shadow: 3px 3px 0 #000;
     text-transform: uppercase;
     color: #000;
     cursor: default;
@@ -137,46 +152,46 @@ body.shake-screen {
 .tech-badge:hover {
     transform: scale(1.2) rotate(0deg) !important;
     z-index: 10;
-    box-shadow: 6px 6px 0 #000;
+    box-shadow: 5px 5px 0 #000;
 }
 
 /* --- КНОПКИ --- */
-.links-jelly { display: flex; flex-direction: column; gap: 20px; transform: translateZ(60px); }
+.links-jelly { display: flex; flex-direction: column; gap: 15px; transform: translateZ(60px); width: 100%; }
 
 .btn-boom {
-    text-decoration: none; padding: 20px;
-    border-radius: 30px; font-weight: 900; font-size: 22px;
-    display: flex; align-items: center; justify-content: center; gap: 15px;
-    border: 5px solid #000;
-    box-shadow: 8px 8px 0 #000;
+    text-decoration: none; padding: 18px;
+    border-radius: 25px; font-weight: 900; font-size: 20px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    border: 4px solid #000;
+    box-shadow: 6px 6px 0 #000;
     color: #000;
     transition: all 0.1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     position: relative;
     overflow: hidden;
+    background: #00f2fe; /* Цвет Telegram */
 }
-
-.btn-tg { background: #00f2fe; }
 
 .icon-shake { display: inline-block; transition: 0.3s; }
 
-.btn-boom:hover { transform: translate(-5px, -5px) scale(1.05); box-shadow: 15px 15px 0 #000; }
+.btn-boom:hover { transform: translate(-3px, -3px) scale(1.02); box-shadow: 10px 10px 0 #000; }
 .btn-boom:hover .icon-shake { animation: spinWiggle 0.5s infinite linear; }
-.btn-boom:active { transform: translate(5px, 5px) scale(0.95); box-shadow: 0 0 0 #000; }
+.btn-boom:active { transform: translate(3px, 3px) scale(0.98); box-shadow: 0 0 0 #000; }
 
 /* --- КОПИРАЙТ --- */
 .copyright-stamp {
-    margin-top: 35px;
-    font-size: 10px; font-weight: 900; color: #fff;
+    margin-top: 30px;
+    font-size: 9px; font-weight: 900; color: #fff;
     background: #000;
-    padding: 8px 15px; border-radius: 5px;
-    text-transform: uppercase; letter-spacing: 2px;
+    padding: 8px 10px; border-radius: 5px;
+    text-transform: uppercase; letter-spacing: 1px;
     transform: translateZ(30px) rotate(-2deg);
-    box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
     display: inline-block;
     animation: copyrightFloat 3s infinite ease-in-out;
     border: 2px dashed #FFD700;
+    max-width: 100%; /* Чтобы не вылезало */
+    white-space: nowrap; /* Чтобы текст не переносился уродливо */
 }
-.copyright-stamp:hover { animation: textJitter 0.2s infinite; background: #FF0040; cursor: help; }
 
 /* --- ЧАСТИЦЫ --- */
 .cursor-trail { position: absolute; pointer-events: none; font-size: 20px; z-index: 9999; animation: trailFade 0.8s linear forwards; }
@@ -191,10 +206,65 @@ body.shake-screen {
 @keyframes flyAcrossReverse { from {right: -20%; transform: scaleX(-1) rotate(-10deg);} to {right: 120%; transform: scaleX(-1) rotate(10deg);}}
 @keyframes cardBreathe { 0%, 100% {transform: scale(1) rotate(0deg);} 50% {transform: scale(1.02) rotate(0.5deg);}}
 @keyframes bounceDeco { 0%, 100% {transform: translateZ(60px) translateY(0);} 50% {transform: translateZ(60px) translateY(-20px);}}
-@keyframes avatarPulse { 0% {box-shadow: 8px 8px 0 #000; transform: translateZ(50px) scale(1);} 100% {box-shadow: 12px 12px 0 #FFD700; transform: translateZ(50px) scale(1.05);}}
+@keyframes avatarPulse { 0% {box-shadow: 6px 6px 0 #000; transform: translateZ(50px) scale(1);} 100% {box-shadow: 10px 10px 0 #FFD700; transform: translateZ(50px) scale(1.05);}}
 @keyframes textJitter { 0% {transform: translateZ(40px) skewX(0deg);} 25% {transform: translateZ(40px) skewX(2deg);} 75% {transform: translateZ(40px) skewX(-2deg);} 100% {transform: translateZ(40px) skewX(0deg);}}
 @keyframes statusWiggle { 0%, 100% {transform: translateZ(30px) rotate(-3deg);} 50% {transform: translateZ(30px) rotate(3deg);}}
 @keyframes trailFade { 0% {opacity: 1; transform: scale(1) rotate(0deg);} 100% {opacity: 0; transform: scale(0) rotate(180deg);}}
 @keyframes explosionFly { 0% {opacity: 1; transform: translate(0,0) scale(1) rotate(0deg);} 100% {opacity: 0; transform: translate(var(--vx), var(--vy)) scale(2) rotate(var(--vr));}}
 @keyframes screenShake { 0%, 100% {transform: translate(0, 0);} 10%, 30%, 50%, 70%, 90% {transform: translate(-5px, 3px);} 20%, 40%, 60%, 80% {transform: translate(5px, -3px);}}
 @keyframes copyrightFloat { 0%, 100% { transform: translateZ(30px) rotate(-2deg) scale(1); } 50% { transform: translateZ(30px) rotate(2deg) scale(1.1); } }
+
+/* ========================================= */
+/* !!! АДАПТАЦИЯ ПОД МОБИЛКИ (ГЛАВНОЕ) !!! */
+/* ========================================= */
+@media (max-width: 480px) {
+    .card-ultra {
+        padding: 30px 15px; /* Меньше отступы внутри */
+        border-width: 4px;
+        box-shadow: 6px 6px 0px #000, inset 0 0 20px rgba(255,255,255,0.8);
+    }
+    
+    .avatar-mega-wrapper {
+        width: 110px; height: 110px; /* Аватарка меньше */
+    }
+
+    .nickname-boom {
+        font-size: 24px; /* Ник меньше */
+    }
+    
+    .status-wiggle {
+        font-size: 12px; /* Статус меньше */
+        padding: 6px 10px;
+    }
+
+    .tech-stack {
+        gap: 6px; /* Стикеры ближе друг к другу */
+    }
+
+    .tech-badge {
+        font-size: 10px; /* Текст на стикерах меньше */
+        padding: 6px 8px;
+        border-width: 2px;
+        box-shadow: 2px 2px 0 #000;
+    }
+
+    .btn-boom {
+        padding: 15px;
+        font-size: 16px; /* Кнопка меньше */
+    }
+
+    /* Уменьшаем декорации чтобы не вылезали */
+    .deco-star, .deco-heart, .deco-donut { transform: scale(0.6); } 
+    .s1 { left: -5px; }
+    .s2 { right: -5px; }
+    
+    .copyright-stamp {
+        font-size: 7px;
+        margin-top: 20px;
+    }
+    
+    .sun-boom {
+        font-size: 100px;
+        top: 10px; right: 10px;
+    }
+}
