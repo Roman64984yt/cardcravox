@@ -1,0 +1,200 @@
+/* --- Глобальные настройки --- */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    user-select: none; 
+    -webkit-user-drag: none;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Comic Neue', cursive;
+    background: linear-gradient(45deg, #00c6ff, #0072ff, #f8cdda, #fddb92);
+    background-size: 400% 400%;
+    animation: skyShift 10s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="font-size:24px"><text y="24">👾</text></svg>') 16 16, auto;
+}
+
+body.shake-screen {
+    animation: screenShake 0.3s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* --- ФОН --- */
+.sky-chaos { position: absolute; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+
+.rainbow {
+    position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
+    background: radial-gradient(circle, transparent 30%, rgba(255,0,0,0.2) 31%, rgba(255,165,0,0.2) 33%, rgba(255,255,0,0.2) 35%, rgba(0,128,0,0.2) 37%, rgba(0,0,255,0.2) 39%, rgba(75,0,130,0.2) 41%, rgba(238,130,238,0.2) 43%, transparent 50%);
+    animation: rotateRainbow 60s linear infinite; opacity: 0.6;
+}
+
+.sun-boom {
+    position: absolute; top: 20px; right: 20px; font-size: 150px;
+    filter: drop-shadow(0 0 50px #ffeb3b);
+    animation: spinWiggle 5s infinite linear;
+}
+
+.cloud-mega {
+    position: absolute; font-size: 120px; opacity: 0.8;
+    filter: drop-shadow(10px 10px 0px rgba(0,0,0,0.2));
+    animation: floatClouds 20s infinite linear;
+}
+.c1 { top: 10%; left: -20%; animation-duration: 25s; }
+.c2 { top: 50%; left: -25%; animation-duration: 35s; animation-delay: -5s; font-size: 180px; }
+.c3 { top: 80%; left: -15%; animation-duration: 28s; animation-delay: -10s; }
+
+.flying-object { position: absolute; font-size: 80px; }
+.ufo { top: 20%; animation: flyAcross 15s infinite linear; }
+.rocket { bottom: 20%; animation: flyAcrossReverse 20s infinite linear; }
+
+/* --- КАРТОЧКА --- */
+.scene-jelly { perspective: 1200px; z-index: 10; }
+
+.card-ultra {
+    border: 6px solid #000;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    width: 380px;
+    border-radius: 50px;
+    padding: 50px 30px;
+    text-align: center;
+    box-shadow: 15px 15px 0px #000, inset 0 0 30px rgba(255,255,255,0.8);
+    transform-style: preserve-3d;
+    animation: cardBreathe 3s infinite ease-in-out;
+}
+
+.deco-star, .deco-heart, .deco-donut {
+    position: absolute; font-size: 50px;
+    filter: drop-shadow(4px 4px 0 #000);
+    animation: bounceDeco 2s infinite ease-in-out;
+}
+.s1 { top: -30px; left: -20px; transform: translateZ(60px) rotate(-20deg); animation-delay: 0.1s; }
+.s2 { bottom: 20%; right: -30px; transform: translateZ(60px) rotate(20deg); animation-delay: 0.3s; font-size: 40px;}
+.h1 { top: -40px; right: 10px; transform: translateZ(70px) rotate(15deg); animation-delay: 0.5s; }
+.d1 { bottom: -30px; left: 20px; transform: translateZ(80px) rotate(-10deg); animation-delay: 0.7s; font-size: 60px; }
+
+.avatar-mega-wrapper {
+    width: 160px; height: 160px; margin: 0 auto 20px;
+    border-radius: 50%;
+    border: 6px solid #000;
+    background: #fff;
+    box-shadow: 8px 8px 0 #000;
+    transform: translateZ(50px);
+    animation: avatarPulse 2s infinite alternate;
+}
+.avatar-ultra { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+.nickname-boom {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 38px;
+    color: #FFD700;
+    text-shadow: 3px 3px 0 #000, -3px -3px 0 #ff00de, 6px 6px 0 #000;
+    transform: translateZ(40px);
+    animation: textJitter 0.2s infinite;
+}
+
+.status-wiggle {
+    font-weight: 900; color: #000;
+    background: #fff; display: inline-block;
+    padding: 5px 15px; border: 3px solid #000; border-radius: 20px;
+    box-shadow: 4px 4px 0 #000;
+    margin-bottom: 25px;
+    transform: translateZ(30px) rotate(-2deg);
+    animation: statusWiggle 1s infinite ease-in-out;
+}
+
+/* --- СТИКЕРЫ ТЕХНОЛОГИЙ (НОВОЕ) --- */
+.tech-stack {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+    transform: translateZ(35px);
+}
+
+.tech-badge {
+    font-weight: 900;
+    font-size: 14px;
+    padding: 8px 12px;
+    border: 3px solid #000;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 #000;
+    text-transform: uppercase;
+    color: #000;
+    cursor: default;
+    transition: transform 0.2s;
+}
+
+.python { background: #ffeaa7; transform: rotate(-3deg); }
+.html { background: #ff7675; color: #fff; transform: rotate(2deg); }
+.css { background: #74b9ff; color: #fff; transform: rotate(-2deg); }
+.java { background: #fd79a8; color: #fff; transform: rotate(3deg); }
+
+.tech-badge:hover {
+    transform: scale(1.2) rotate(0deg) !important;
+    z-index: 10;
+    box-shadow: 6px 6px 0 #000;
+}
+
+/* --- КНОПКИ --- */
+.links-jelly { display: flex; flex-direction: column; gap: 20px; transform: translateZ(60px); }
+
+.btn-boom {
+    text-decoration: none; padding: 20px;
+    border-radius: 30px; font-weight: 900; font-size: 22px;
+    display: flex; align-items: center; justify-content: center; gap: 15px;
+    border: 5px solid #000;
+    box-shadow: 8px 8px 0 #000;
+    color: #000;
+    transition: all 0.1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-tg { background: #00f2fe; }
+
+.icon-shake { display: inline-block; transition: 0.3s; }
+
+.btn-boom:hover { transform: translate(-5px, -5px) scale(1.05); box-shadow: 15px 15px 0 #000; }
+.btn-boom:hover .icon-shake { animation: spinWiggle 0.5s infinite linear; }
+.btn-boom:active { transform: translate(5px, 5px) scale(0.95); box-shadow: 0 0 0 #000; }
+
+/* --- КОПИРАЙТ --- */
+.copyright-stamp {
+    margin-top: 35px;
+    font-size: 10px; font-weight: 900; color: #fff;
+    background: #000;
+    padding: 8px 15px; border-radius: 5px;
+    text-transform: uppercase; letter-spacing: 2px;
+    transform: translateZ(30px) rotate(-2deg);
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+    display: inline-block;
+    animation: copyrightFloat 3s infinite ease-in-out;
+    border: 2px dashed #FFD700;
+}
+.copyright-stamp:hover { animation: textJitter 0.2s infinite; background: #FF0040; cursor: help; }
+
+/* --- ЧАСТИЦЫ --- */
+.cursor-trail { position: absolute; pointer-events: none; font-size: 20px; z-index: 9999; animation: trailFade 0.8s linear forwards; }
+.explosion-particle { position: absolute; pointer-events: none; font-size: 30px; z-index: 999; filter: drop-shadow(2px 2px 0 #000); animation: explosionFly 0.8s ease-out forwards; }
+
+/* --- АНИМАЦИИ --- */
+@keyframes skyShift { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;}}
+@keyframes rotateRainbow { 0% {transform: rotate(0deg);} 100% {transform: rotate(360deg);}}
+@keyframes spinWiggle { 0% {transform: rotate(0deg) scale(1);} 25% {transform: rotate(10deg) scale(1.1);} 50% {transform: rotate(0deg) scale(1);} 75% {transform: rotate(-10deg) scale(1.1);} 100% {transform: rotate(0deg) scale(1);}}
+@keyframes floatClouds { from {transform: translateX(-150%);} to {transform: translateX(150vw);}}
+@keyframes flyAcross { from {left: -20%; transform: rotate(-10deg);} to {left: 120%; transform: rotate(10deg);}}
+@keyframes flyAcrossReverse { from {right: -20%; transform: scaleX(-1) rotate(-10deg);} to {right: 120%; transform: scaleX(-1) rotate(10deg);}}
+@keyframes cardBreathe { 0%, 100% {transform: scale(1) rotate(0deg);} 50% {transform: scale(1.02) rotate(0.5deg);}}
+@keyframes bounceDeco { 0%, 100% {transform: translateZ(60px) translateY(0);} 50% {transform: translateZ(60px) translateY(-20px);}}
+@keyframes avatarPulse { 0% {box-shadow: 8px 8px 0 #000; transform: translateZ(50px) scale(1);} 100% {box-shadow: 12px 12px 0 #FFD700; transform: translateZ(50px) scale(1.05);}}
+@keyframes textJitter { 0% {transform: translateZ(40px) skewX(0deg);} 25% {transform: translateZ(40px) skewX(2deg);} 75% {transform: translateZ(40px) skewX(-2deg);} 100% {transform: translateZ(40px) skewX(0deg);}}
+@keyframes statusWiggle { 0%, 100% {transform: translateZ(30px) rotate(-3deg);} 50% {transform: translateZ(30px) rotate(3deg);}}
+@keyframes trailFade { 0% {opacity: 1; transform: scale(1) rotate(0deg);} 100% {opacity: 0; transform: scale(0) rotate(180deg);}}
+@keyframes explosionFly { 0% {opacity: 1; transform: translate(0,0) scale(1) rotate(0deg);} 100% {opacity: 0; transform: translate(var(--vx), var(--vy)) scale(2) rotate(var(--vr));}}
+@keyframes screenShake { 0%, 100% {transform: translate(0, 0);} 10%, 30%, 50%, 70%, 90% {transform: translate(-5px, 3px);} 20%, 40%, 60%, 80% {transform: translate(5px, -3px);}}
+@keyframes copyrightFloat { 0%, 100% { transform: translateZ(30px) rotate(-2deg) scale(1); } 50% { transform: translateZ(30px) rotate(2deg) scale(1.1); } }
